@@ -1,0 +1,21 @@
+org: alissonpl999
+app: typescript-http-api
+service: typescript-http-api
+frameworkVersion: "3"
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  hello:
+    handler: handler.hello
+    memorySize: 128
+    events:
+      - httpApi:
+          path: /clinic/{clinicId}/user/{userId}
+          method: post
