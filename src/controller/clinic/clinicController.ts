@@ -8,8 +8,6 @@ export class ClinicController {
   }
 
   public async Router(
-    method: string,
-    route: string,
     headers?: any,
     pathParameters?: any,
     queryStringParameters?: any,
@@ -29,21 +27,12 @@ export class ClinicController {
         },
       },
       POST: {
-        "/clinic/{clinicId}/user/{userId}": {
+        "/clinic/{clinicId}/user": {
           function: await this.getPost(request),
         },
       },
     };
-
-    const findRoute = routes[method][route];
-    if (findRoute) {
-      return findRoute.function;
-    }
-
-    return {
-      statusCode: 404,
-      //body: { message: "Not Found Route" },
-    };
+    return routes;
   }
 
   private getClinic(request: any) {

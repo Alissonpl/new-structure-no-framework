@@ -19,27 +19,27 @@ export class ControllerModule {
     queryStringParameters?: any,
     body?: any
   ) {
-    const path = route.split("/")[1];
-    const routers = [
-      {
-        clinic: "clinic",
-        routers: await this.clinicController.Router(
-          method,
-          route,
-          headers,
-          pathParameters,
-          queryStringParameters,
-          body
-        ),
-      },
-    ];
+    const routesClinic = await this.clinicController.Router(
+      headers,
+      pathParameters,
+      queryStringParameters,
+      body
+    );
 
-    for (let i = 0; i < routers.length; i++) {
-      if (routers[i][path]) {
-        return routers[i].routers;
-      }
+    const routes = {
+      ...routesClinic,
+    };
+    const findRoute = routes[method][route];
+
+    if (findRoute) {
+      return findRoute.function;
     }
 
-    return { statusCode: 404 };
+    return {
+      statusCode: 404,
+      body: JSON.stringify({
+        message: "NOT FOUND ROUTE",
+      }),
+    };
   }
 }

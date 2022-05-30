@@ -13,7 +13,7 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: index.handler
     memorySize: 128
     events:
       - httpApi:

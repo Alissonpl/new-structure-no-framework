@@ -16,7 +16,7 @@ const routerRequest = (routeKey: string) => {
   };
 };
 
-export const hello: Handler = async (
+export const handler: Handler = async (
   event: any,
   context: Context,
   callback: Callback
