@@ -1,8 +1,8 @@
 import { ClinicRepository } from "../infrastructure/repository/clinicRepository";
 import knex from "knex";
 import { knexConfig } from "../../dbconfig";
-export class InfrastrutureModule {
-  public getInfrastrutureModule() {
+export class InfrastructureModule {
+  public getInfrastructureModule() {
     const databaseInstance = this.databaseInstance();
     const clinicRepository = new ClinicRepository({
       knex: databaseInstance,
