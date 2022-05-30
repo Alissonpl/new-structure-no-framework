@@ -22,29 +22,24 @@ export class ClinicController {
       body,
     };
 
-    const r = [
-      {
-        GET: "GET",
-        "/clinic/{clinicId}": "/clinic/{clinicId}",
-        function: await this.getClinic(request),
+    const routes = {
+      GET: {
+        "/clinic/{clinicId}": {
+          function: await this.getClinic(request),
+        },
       },
-      {
-        POST: "POST",
-        "/clinic/{clinicId}/user/{userId}": "/clinic/{clinicId}/user/{userId}",
-        function: await this.getPost(request),
+      POST: {
+        "/clinic/{clinicId}/user/{userId}": {
+          function: await this.getPost(request),
+        },
       },
-    ];
+    };
 
-    for (let i = 0; i < r.length; i++) {
-      if (r[i][method] && r[i][route]) {
-        return r[i].function;
-      }
+    const findRoute = routes[method][route];
+    if (findRoute) {
+      return findRoute.function;
     }
 
-    //const response = r.find((i) => i[method] && i[route]);
-    // if (response) {
-    //   return response.function;
-    // }
     return {
       statusCode: 404,
       //body: { message: "Not Found Route" },
